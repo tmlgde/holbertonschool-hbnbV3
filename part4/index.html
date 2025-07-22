@@ -5,14 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List of Places</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/icon.png" type="image/png">
 </head>
 <body>
     <header>
+        <img src="images/logo.png" alt="Application Logo" class="logo" />
         <nav>
-            <a href="login.html" id="login-link">Login</a>
+            <a href="index.html">Home</a>
+            <a href="login.html" class="login-button">Login</a>
+            <a href="place.html">Place, a enlever</a>
+            <a href="add_review.html">Add, a enlever</a>
         </nav>
     </header>
     <main>
+        <h1>Available places</h1>
+        <section class="places-list">
+            <div class="place-card">
+                <h2>Beach House</h2>
+                <p>$150/night</p>
+                <button class="details-button">View Details</button>
+            </div>
+            <div class="place-card">
+                <h2>Mountain House</h2>
+                <p>$250/night</p>
+                <button class="details-button">View Details</button>
+            </div>
+            <div class="place-card">
+                <h2>City House</h2>
+                <p>$500/night</p>
+                <button class="details-button">View Details</button>
+            </div>
+        </section>
         <section id="filter">
             <label for="price-filter">Max Price:</label>
             <select id="price-filter">
@@ -23,6 +46,9 @@
             <!-- List of places will be populated dynamically -->
         </section>
     </main>
+    <footer>
+        <p>All rights reserved.</p>
+    </footer>
     <script src="scripts.js"></script>
 </body>
 </html>

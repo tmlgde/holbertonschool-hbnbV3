@@ -5,18 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Place Details</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/icon.png" type="image/png">
+
 </head>
 <body>
+    <header>
+        <img src="images/logo.png" alt="App Logo" class="logo" />
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="login.html" class="login-button">Login</a>
+        </nav>
+    </header>
     <main>
-        <section id="place-details">
-            <!-- Place details will be populated dynamically -->
+        <section class="place-details">
+            <div class="place-info">
+                <h1>Beach House</h1>
+                <p>Host: Haguinounet</p>
+                <p>Price: $150 per night</p>
+                <p>Description: A beautiful house on the beach</p>
+                <ul>
+                    <li>Wi-fi</li>
+                    <li>Garden</li>
+                    <li>Garage</li>
+                </ul>
+            </div>
         </section>
-        <section id="reviews">
-            <!-- Reviews will be populated dynamically -->
+        <section class="reviews">
+            <div class="review-card">
+            <p><strong><i>Clayton Reeves: </i></strong> A beautiful house!</p>
+        </div>
+            <div class="review-card">
+            <p><strong><i>Thomas Sergueï: </i></strong>What a house!</p>
+        </div>
         </section>
-        <section id="add-review">
+        <section class="add-review">
             <h2>Add a Review</h2>
-            <form id="review-form">
+            <form class="form">
                 <label for="review-text">Review:</label>
                 <textarea id="review-text" name="review-text" required></textarea>
                 
@@ -24,6 +48,9 @@
             </form>
         </section>
     </main>
+    <footer>
+        <p>All rights reserved.</p>
+    </footer>
     <script src="scripts.js"></script>
 </body>
 </html>

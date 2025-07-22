@@ -30,3 +30,16 @@ nav a {
 main {
     padding: 2rem;
 }
+
+.place-card {
+    margin: 20px;
+    padding: 10px;
+    border: solid #ddd;
+    border-radius: 10px;
+}
+.review-card {
+    margin: 20px;
+    padding: 10px;
+    border: solid #ddd;
+    border-radius: 10px;
+}
