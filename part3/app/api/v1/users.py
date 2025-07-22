@@ -23,13 +23,12 @@ class UserList(Resource):
     def post(self):
         """Register a new user"""
         user_data = api.payload
-
-        if 'is_admin' in user_data:
+        is_admin = user_data.get('is_admin', None)
+        if is_admin:
             user = get_jwt_identity()
             if not user:
                 return {'error': 'Unauthorized'}, 401
             is_admin = get_jwt()['is_admin']
-            print(is_admin)
             if not is_admin:
                 return {'error': 'Forbidden'}, 403
 
