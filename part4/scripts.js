@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Login success', data);
 
             //stock on cookie
-            document.cookie = "token=${data.acces_token}; path=/";
+            document.cookie = `token=${data.access_token}; path=/`;
             
             //user going to index.html
             window.location.href = 'index.html';

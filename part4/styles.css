@@ -1,45 +1,114 @@
 /* 
   This is a SAMPLE File to get you started. Follow the instructions on the project to complete the tasks. 
-  You'll probably need to override some of theese styles.
+  You'll probably need to override some of these styles.
 */
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
 body {
-    background-color: #f4f4f4;
-    color: #333;
+  background-color: #f4f4f4;
+  color: #333;
 }
 
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 1rem;
+  background-color: #f0e006; /* orange comme dans ta capture */
+  color: #ffffff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+header .logo img {
+  height: 30px;
+  margin-right: 10px;
 }
 
 nav a {
-    color: #fff;
-    text-decoration: none;
-    margin-left: 1rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 1rem;
 }
 
 main {
-    padding: 2rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+#filter {
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
+.places-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
 .place-card {
-    margin: 20px;
-    padding: 10px;
-    border: solid #ddd;
-    border-radius: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;         
+  border-radius: 10px;            
+  margin: 20px;
+  padding: 10px;                  
+  width: 250px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
+
+.place-card h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.place-card p {
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.details-button {
+  background-color: #f0e006;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.details-button:hover {
+  background-color: #000000;
+}
+
 .review-card {
-    margin: 20px;
-    padding: 10px;
-    border: solid #ddd;
-    border-radius: 10px;
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+footer {
+  background-color: #000000;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
 }
