@@ -11,7 +11,7 @@ review_model = api.model('Review', {
     'place_id': fields.String(required=True, description='ID of the place')
 })
 
-@api.route('/')
+@api.route('/places/<string:place_id>/reviews')
 class ReviewList(Resource):
     @api.expect(review_model)
     @api.response(201, 'Review successfully created')
@@ -19,10 +19,11 @@ class ReviewList(Resource):
     @api.response(401, 'Unauthorized')
     @jwt_required()
     @api.doc(security='apikey')
-    def post(self):
+    def post(self, place_id):
         """Register a new review"""
         current_user = get_jwt_identity()
-        review_data = api.payload
+        review_data = api.payload or {}
+        review_data['place_id'] = place_id
         try:
             new_review = facade.create_review(review_data, current_user)
             return new_review.to_dict(), 201
