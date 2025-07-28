@@ -123,7 +123,7 @@ function displayPlaces(places) {
     placeCard.className = 'place-card';
 
     placeCard.innerHTML = `
-      <h2>${place.name}</h2>
+      <h2>${place.title}</h2>
       <p>${place.description || 'No description available.'}</p>
       <p><strong>Coordinates:</strong> ${place.latitude}, ${place.longitude}</p>
       <p><strong>Price:</strong> ${place.price} €</p>
