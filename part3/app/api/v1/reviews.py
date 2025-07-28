@@ -34,6 +34,9 @@ class ReviewList(Resource):
         """Retrieve a list of all reviews"""
         return [review.to_dict() for review in facade.get_all_reviews()], 200
 
+    def options(self):
+        return {}, 200
+
 @api.route('/<review_id>')
 class ReviewResource(Resource):
     @api.response(200, 'Review details retrieved successfully')
@@ -91,3 +94,6 @@ class ReviewResource(Resource):
             return {'message': 'Review deleted successfully'}, 200
         except Exception as e:
             return {'error': str(e).strip("'")}, 400
+
+    def options(self, review_id=None):
+        return {}, 200

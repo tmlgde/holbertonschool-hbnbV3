@@ -19,8 +19,17 @@ from app.api.v1.protected import api as protected_ns
 
 def create_app(config_class=config.DevelopmentConfig):
     # Création de l'application
-    app = Flask(__name__)
-    CORS(app)
+    app = Flask(__name__, static_url_path='', static_folder='static')
+    app.url_map.strict_slashes = False
+
+    CORS(app, resources={r"/api/*": {"origins": "http://localhost:5500"}}, supports_credentials=True)
+
+    @app.after_request
+    def after_request(response):
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+        response.headers.add('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,PUT,DELETE')
+        return response
+
         
     app.config.from_object(config_class)
     

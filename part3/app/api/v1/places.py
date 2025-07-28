@@ -29,6 +29,10 @@ place_model = api.model('Place', {
 
 @api.route('/')
 class PlaceList(Resource):
+    def options(self):
+        return {}, 200
+
+
     @api.expect(place_model)
     @api.response(201, 'Place successfully created')
     @api.response(400, 'Invalid input data')
@@ -52,8 +56,11 @@ class PlaceList(Resource):
         places = facade.get_all_places()
         return [place.to_dict_list() for place in places], 200
 
-@api.route('/<place_id>')
+@api.route('/<place_id>/')
 class PlaceResource(Resource):
+    def options(self, place_id):
+        return {}, 200
+
     @api.response(200, 'Place details retrieved successfully')
     @api.response(404, 'Place not found')
     def get(self, place_id):
@@ -108,8 +115,11 @@ class PlaceResource(Resource):
         except Exception as e:
             return {'error': str(e).strip("'")}, 400
 
-@api.route('/<place_id>/amenities')
+@api.route('/<place_id>/amenities/')
 class PlaceAmenities(Resource):
+    def options(self, place_id):
+        return {}, 200
+
     @api.expect(amenity_model)
     @api.response(200, 'Amenities added successfully')
     @api.response(404, 'Place not found')
@@ -134,6 +144,8 @@ class PlaceAmenities(Resource):
 
 @api.route('/<place_id>/reviews/')
 class PlaceReviewList(Resource):
+    def options(self, place_id):
+        return {}, 200
     @api.response(200, 'List of reviews for the place retrieved successfully')
     @api.response(404, 'Place not found')
     def get(self, place_id):

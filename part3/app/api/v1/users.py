@@ -48,6 +48,9 @@ class UserList(Resource):
         """Retrieve a list of users"""
         users = facade.get_users()
         return [user.to_dict() for user in users], 200
+
+    def options(self):
+        return {}, 200
     
 @api.route('/<user_id>')
 class UserResource(Resource):
@@ -91,3 +94,6 @@ class UserResource(Resource):
             return user.to_dict(), 200
         except Exception as e:
             return {'error': str(e).strip("'")}, 400
+
+    def options(self, user_id=None):
+        return {}, 200
