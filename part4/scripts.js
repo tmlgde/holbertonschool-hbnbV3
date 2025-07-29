@@ -49,7 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (document.getElementById('places-list')) {
-    checkAuthentication();
+    const token = getCookie('token');
+    if (token) {
+      fetchPlaces(token);
+    } else {
+      console.warn('No token found. PLease log in.');
+    }
   }
 
   // Dessous, on filtre les prix:
@@ -64,7 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
         maxPrice = parseInt(selectedValue);
       }
 
+      // LOGS POUR DEBUG
+      console.log("Selected filter value:", selectedValue);
+      console.log("Parsed maxprice:", maxPrice);
+      console.log("allPlaces length:", allPlaces.length)
+
       const filteredPlaces = allPlaces.filter(place => {
+        console.log(`Checking place '${place.title}' with price ${place.price}`);
         return maxPrice == null || place.price <= maxPrice;
       });
 
@@ -73,12 +84,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const reviewForm = document.getElementById('review-form');
+  const messageDiv = document.getElementById('form-message');
 
   if (reviewForm) {
     reviewForm.addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      const token = getCookie('token');
+      const token = checkAuthenticationForReview();
       const placeId = getPlaceIdFromURL();
       const reviewText = document.getElementById('review-text').value.trim();
 
@@ -101,7 +113,8 @@ document.addEventListener('DOMContentLoaded', () => {
             throw new Error('Failed to submit review');
           }
 
-          alert('Review submitted successfully!');
+          messageDiv.textContent = 'Review submitted successfully!';
+          messageDiv.style.color = 'green';
           reviewForm.reset();
 
           //VOIR LA NOUVELLE REVIEW
@@ -109,37 +122,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
       } catch (error) {
         console.error('Error submitting review:', error);
-        alert('Could not submit review. Please try again.');
+        messageDiv.textContent = "Can't submit, please try again";
+        messageDiv.style.color = "red";
       }
     });
   }
 
   if (document.getElementById('place-details')) {
-    checkAuthentication();
+    checkAuthenticationForDisplay();
   }
 });
 
+/// FONCTIONS GLOBALES
 
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split (`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-}
-
-function checkAuthentication() {
+function checkAuthenticationForDisplay() {
   const token = getCookie('token');
   const loginLink = document.getElementById('login-link');
   const addReviewSection = document.getElementById('add-review');
-  const placeId = getPlaceIdFromURL();
 
-  if (!token) {
-    if (loginLink) loginLink.style.display = 'block';
-    if (addReviewSection) addReviewSection.style.display = 'none';
-  } else {
-    if (loginLink) loginLink.style.display = 'none';
-    if (addReviewSection) addReviewSection.style.display = 'block';
-  
-    fetchPlaceDetails(token, placeId);
+  if (loginLink) {
+    loginLink.style.display = token ? 'none' : 'block';
+  }
+
+  if (addReviewSection) {
+    addReviewSection.style.display = token ? 'block' : 'none';
+
+  if (token) {
+    const placeId = getPlaceIdFromURL();
+    if (placeId) fetchPlaceDetails(token, placeId)
+    }
   }
 }
 
@@ -179,6 +190,8 @@ async function fetchPlaces(token) {
     }
 
     const places = await response.json();
+    allPlaces = places;
+    console.log("All places fetched:", allPlaces);
     displayPlaces(places);
 
   } catch (error) {
@@ -187,6 +200,7 @@ async function fetchPlaces(token) {
 }
 
 function displayPlaces(places) {
+  console.log("Places to display:", places);
   const placesList = document.getElementById('places-list');
   placesList.innerHTML = '';
 
@@ -199,6 +213,7 @@ function displayPlaces(places) {
       <p>${place.description || 'No description available.'}</p>
       <p><strong>Coordinates:</strong> ${place.latitude}, ${place.longitude}</p>
       <p><strong>Price:</strong> ${place.price} €</p>
+      <button class="details-button" onclick="window.location.href='place.html?id=${place.id}'">View Details</button>
     `;
 
   placesList.appendChild(placeCard);
@@ -228,4 +243,21 @@ function displayPlaceDetails(place) {
       }
     </ul>
   `;
+}
+
+function checkAuthenticationForReview() {
+  const token = getCookie('token');
+  if(!token) {
+    window.location.href = "index.html"
+  }
+  return token;
+}
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) {
+    return parts[1].split(';')[0];
+  }
+return null;
 }

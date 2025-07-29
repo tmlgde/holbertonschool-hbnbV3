@@ -72,8 +72,11 @@ class HBnBFacade:
         return self.place_repo.get(place_id)
 
     def get_all_places(self):
-        return self.place_repo.get_all()
-
+        places = self.place_repo.get_all()
+        for place in places:
+            print(f"Place: {place.id}, owner: {place.owner}, user_id: {place.user_id}")
+        return places
+        
     def update_place(self, place_id, place_data):
         return self.place_repo.update(place_id, place_data)
     

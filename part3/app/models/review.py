@@ -34,6 +34,6 @@ class Review(BaseModel):
 			'id': self.id,
 			'text': self.text,
 			'rating': self.rating,
-			'place_id': self.place.id,
-			'user_id': self.user.id
+			'place_id': self.place.id if self.place else self.place_id,
+			'user_id': self.user.id if self.user else self.user_id
 		}

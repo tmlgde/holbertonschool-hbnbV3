@@ -20,11 +20,11 @@
         <h1>Review for: Beach House</h1>
 
         <section class="add-review">
-            <form class="form">
+            <form class="form" id="review-form">
 
             <h2>Add a Review</h2>
             <label for="review">Your Review:</label>
-            <textarea id="review" name="review" required></textarea>
+            <textarea id="review-text" name="review" required></textarea>
 
             <label for="rating">Rating:</label>
             <select id="rating" name="rating" required>
@@ -37,6 +37,7 @@
             </select>
             <button type="submit">Submit Review</button>
         </form>
+        <div id="form-message" style="margin-top: 10px; font-weight: bold;"></div>
         </section>
     </main>
     <footer>

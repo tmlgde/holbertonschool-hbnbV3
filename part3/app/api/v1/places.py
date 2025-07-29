@@ -53,8 +53,13 @@ class PlaceList(Resource):
     @api.response(200, 'List of places retrieved successfully')
     def get(self):
         """Retrieve a list of all places"""
-        places = facade.get_all_places()
-        return [place.to_dict_list() for place in places], 200
+        try:
+            places = facade.get_all_places()
+            return [place.to_dict_list() for place in places], 200
+        except Exception as e:
+            print(f"Erreur dans GET /places : {e}")
+            return {'error': 'Server error'}, 500
+
 
 @api.route('/<place_id>/')
 class PlaceResource(Resource):

@@ -75,7 +75,7 @@ class Place(BaseModel):
             'price': self.price,
             'latitude': self.latitude,
             'longitude': self.longitude,
-            'owner_id': self.owner.id
+            'owner_id': self.owner.id if self.owner else self.user_id
         }
     
     def to_dict_list(self):
@@ -86,7 +86,7 @@ class Place(BaseModel):
             'price': self.price,
             'latitude': self.latitude,
             'longitude': self.longitude,
-            'owner': self.owner.to_dict(),
+            'owner': self.owner.to_dict() if self.owner else None,
             'amenities': [amenity.to_dict() for amenity in self.amenities],
             'reviews': [review.to_dict() for review in self.reviews]
         }
